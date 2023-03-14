@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import authRoute from './routes/auth.js';
-
+import profileRoute from './routes/profile.js';
 
 const app = express();
 
@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({limit:"30mb",extended:"true"}));
 
 app.use(cors());
 
-app.use('/',authRoute);
+app.use('/api/auth',authRoute);
+app.use('/api/profile',profileRoute);
 
 app.get('/',(req,res)=>{
     res.status(200).json("Hello");

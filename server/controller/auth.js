@@ -11,12 +11,12 @@ export const signIn = async (req, res) => {
         if (user) {
             if (user.authenticate(req.body.password)) {
               //  const token = jwt.sign({ _id: user._id },"123", { expiresIn: '1h' });
-                const { _id, firstName, lastName, email, role, fullName } = user;
+                const { _id, firstName, lastName, email, fullName } = user;
 
                 res.status(200).json({  
                  //   token,
                     user: {
-                        _id, firstName, lastName, email, role, fullName
+                        _id, firstName, lastName, email, fullName
                     }
                 })
             }
@@ -43,16 +43,6 @@ export const signUp = async (req, res) => {
     {
         return res.status(400).json({ message: "Try Different Username" });
     }
-
-
-//    await User.findOne({ email: req.body.email }).then((user) => {
-//        return res.status(400).json({ message: "Already Registered" });
-//     });
-
-    // User.findOne({ username: req.body.username }).then(user => {
-    //     if (user)
-    //         return res.status(400).json({ message: "Try Different Username" });
-    // });
 
 
     const {

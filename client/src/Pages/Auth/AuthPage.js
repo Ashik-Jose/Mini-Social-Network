@@ -6,7 +6,7 @@ import SignUpPage from "./SignUpPage";
 const AuthPage=()=>{
 
 
-    const [authState,setAuthState] = useState(true)
+    const [authState,setAuthState] = useState(false)
 
     const changeAuth=()=>{
         setAuthState(!authState);

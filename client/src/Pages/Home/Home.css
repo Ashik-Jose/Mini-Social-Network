@@ -1,0 +1,22 @@
+.home{
+    background-image: linear-gradient(#7edfea, white);
+}
+
+.home-contents{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 2rem;
+}
+
+.search-input{
+    border: none;
+}
+
+.search-input:focus{
+    border: none;
+    outline: none;
+}
+
+.search-components{
+    padding: 5px;
+}

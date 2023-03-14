@@ -1,7 +1,12 @@
-import React from 'react';
-import './LoginPage.css'
+import React, { useState } from 'react';
+import './LoginPage.css';
+import API from '../../api';
 
 const LoginPage = ({changeAuth}) => {
+
+    const [data,setData] = useState({username:"",password:""})
+
+
     return (
            <form class="form-contents">
                 <h3>Sign In</h3>
@@ -12,6 +17,8 @@ const LoginPage = ({changeAuth}) => {
                         type="text"
                         className="form-control"
                         placeholder="Enter username"
+                        value={data.username}
+                        onChange={(e)=> setData({...data,username:e.target.value})}
                     />
                 </div>
                 <div className="mb-3 pt-3">
@@ -21,12 +28,25 @@ const LoginPage = ({changeAuth}) => {
                         required
                         className="form-control"
                         placeholder="Enter password"
+                        value={data.password}
+                        onChange={(e)=> setData({...data,password:e.target.value})}
                     />
                 </div>
                 <div className="d-grid pt-3">
-                    <button type="submit" className="btn btn-primary">
+                    <buttom type="submit" className="btn btn-primary" onClick={()=>{
+
+                           // console.log(data)
+
+                            API.post('/auth/signIn', data).then((response) => {
+                                console.log("Logged In")
+                            }).catch(error => {
+                                console.log(error)
+
+                            });
+
+                    }}>
                         Submit
-                    </button>
+                    </buttom>
                 </div>
 
                 <div className='pt-3'>

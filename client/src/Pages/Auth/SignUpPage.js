@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
+import { useNavigate } from 'react-router-dom';
 import API from '../../api';
 import './LoginPage.css'
 
@@ -13,6 +15,8 @@ const SignUpPage = ({ changeAuth }) => {
     })
 
     const [confirmPassword, setConfirmPassword] = useState(false);
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
     var pass = "";
 
 
@@ -96,16 +100,25 @@ const SignUpPage = ({ changeAuth }) => {
             </div>
             <div className="d-grid pt-1">
                 <buttom type="submit" className="btn btn-primary" onClick={() => {
+                    setLoading(true);
                     if (!confirmPassword) {
                         API.post('/auth/signUp', data).then((response) => {
-                            console.log("Signed Up")
+                            setLoading(false);
+                           changeAuth()
                         }).catch(error => {
                             console.log(error)
 
                         });
                     }
 
-                }}> 
+                }}>
+                    {loading && <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />}
                     Submit
                 </buttom>
             </div>

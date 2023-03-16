@@ -21,14 +21,14 @@ const Userschema = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-      //  unique: true,
+        //  unique: true,
         lowercase: true
     },
     email: {
         type: String,
         required: true,
         trim: true,
-       // unique: true,
+        // unique: true,
         lowercase: true
     },
     password: {
@@ -37,11 +37,15 @@ const Userschema = mongoose.Schema({
     },
     status: {
         type: String,
-        default:""
+        default: ""
     },
-    profilePicture: {type: String}
-    
-},{timestamps: true},);
+    friendsList:{
+        type: Array,
+        default: []
+    },
+    profilePicture: { type: String }
+
+}, { timestamps: true },);
 
 
 // Userschema.virtual('password')
@@ -51,13 +55,13 @@ const Userschema = mongoose.Schema({
 // });
 
 Userschema.methods = {
-    authenticate: function(pass){
-        if(pass==this.password)
+    authenticate: function (pass) {
+        if (pass == this.password)
             return true;
         //return bcrypt.compareSync(password,this.hash_password);
     }
 }
 
-const Schema = mongoose.model('User',Userschema);
+const Schema = mongoose.model('User', Userschema);
 
 export default Schema;

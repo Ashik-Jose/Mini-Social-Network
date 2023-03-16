@@ -1,4 +1,5 @@
 import express from 'express';
+import { addFriend, friendProfile } from '../controller/friendProfile.js';
 import { getSearchResults, profile, statusChange } from '../controller/profile.js';
 
 const router = express.Router();

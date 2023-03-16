@@ -11,12 +11,12 @@ export const signIn = async (req, res) => {
         if (user) {
             if (user.authenticate(req.body.password)) {
               //  const token = jwt.sign({ _id: user._id },"123", { expiresIn: '1h' });
-                const { _id, firstName, lastName, email, fullName } = user;
+                const { _id, firstName, lastName, email, username } = user;
 
                 res.status(200).json({  
                  //   token,
                     user: {
-                        _id, firstName, lastName, email, fullName
+                        _id, firstName, lastName, email, username
                     }
                 })
             }

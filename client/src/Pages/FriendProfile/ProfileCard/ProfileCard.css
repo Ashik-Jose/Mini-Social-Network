@@ -1,0 +1,10 @@
+.status-input{
+    padding-top: 10px;
+    border: none;
+    border-bottom: 1px solid;
+}
+.status-input:focus{
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+}

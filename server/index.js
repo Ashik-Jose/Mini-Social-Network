@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import authRoute from './routes/auth.js';
 import profileRoute from './routes/profile.js';
+import friendRoute from './routes/friend.js';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/api/auth',authRoute);
 app.use('/api/profile',profileRoute);
+app.use('/api/profile/friend',friendRoute);
 
 app.get('/',(req,res)=>{
     res.status(200).json("Hello");

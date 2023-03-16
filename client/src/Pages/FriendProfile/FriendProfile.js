@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import Select, { components } from 'react-select';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import API from '../../api/index.js'
 import FriendsList from './Friends/FriendsList';
-import './Home.css';
+import './FriendProfile.css';
 import PostCard from './Posts/PostCard';
 import ProfileCard from './ProfileCard/ProfileCard';
-import { useNavigate } from 'react-router-dom';
+import MutualFriends from './Friends/MutualFriends.js';
 
 
-const Home = () => {
+const FriendProfile = () => {
 
-    const userid = JSON.parse(localStorage.getItem('userid'))
+    const location = useLocation();
+    const myFriends = location.state.myFriends;
     const navigate = useNavigate();
+   const username = location.state.username;
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState();
     const [options, setOptions] = useState([]);
 
     useEffect(() => {
         // setLoading(true)
-        API.get('/profile/' + `${userid}`).then((response) => {
+        API.get('/profile/friend/' + `${username}`).then((response) => {
             setLoading(false);
             setData(response.data);
         }).catch(error => {
@@ -36,9 +38,10 @@ const Home = () => {
                 </div>
                 :
                 <div className='home-contents'>
-                    <ProfileCard profileData={data} userid={userid} />
+                    <ProfileCard profileData={data} />
                     <div>
                         <div>
+
                             <div style={{ backgroundColor: "white", height: "2.5rem" }}>
                                 <i class="bi bi-search ms-3"></i>
                                 <input
@@ -61,13 +64,13 @@ const Home = () => {
                                     }}
                                 />
                             </div>
-                            <div className='pb-2' style={{ backgroundColor: "white", opacity: options.length > 0 ? "1" : "0", transition: "0.5s" }}>
-                                {options.length > 0 && options.map((option) => {
+                            <div style={{ backgroundColor: "white", opacity: options.length > 0 ? "1" : "0", transition: "0.5s" }}>
+                            {options.length > 0 && options.map((option) => {
                                     if (option.username !== data.username) {
                                         return (
                                             <p style={{ cursor: "pointer", fontWeight: "bold" }} className='ps-4' onClick={() => {
                                                 //   console.log(option.username)
-                                                navigate('/friendprofile', { state: { username: option.username, myFriends: data.friends } })
+                                                navigate('/friendprofile', { state: { username: option.username } })
                                             }}>{option.username}</p>
                                         );
                                     }
@@ -80,8 +83,9 @@ const Home = () => {
                         <PostCard />
                         <PostCard />
                     </div>
-                    <div>
-                        <FriendsList friends={data.friends} />
+                    <div className='pt-5'>
+                        <FriendsList friends={data.friends}/>
+                        <MutualFriends friends={data.friends} myFriends={myFriends}/>
                     </div>
                 </div>
             }
@@ -90,4 +94,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default FriendProfile;

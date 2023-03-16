@@ -23,6 +23,7 @@ const ProfileCard = ({ profileData, userid }) => {
                         <i style={{ cursor: "pointer" }} class="bi bi-box-arrow-left" onClick={() => {
                             navigate('/');
                             localStorage.removeItem('userid')
+                            localStorage.removeItem('username')
                         }}></i>
                     </div>
 

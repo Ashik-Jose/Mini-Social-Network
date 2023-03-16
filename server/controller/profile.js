@@ -11,7 +11,8 @@ export const profile = async (req, res) => {
             lastName: prof.lastName,
             username: prof.username,
             email: prof.email,
-            status: prof.status
+            status: prof.status,
+            friends: prof.friendsList
         }
         return res.status(200).json(profile);
     } catch (error) {
@@ -56,3 +57,4 @@ export const getSearchResults = async (req, res) => {
         return res.status(400).json(error);
     }
 }
+

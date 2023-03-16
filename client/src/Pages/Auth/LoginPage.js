@@ -43,6 +43,7 @@ const LoginPage = ({ changeAuth }) => {
                     API.post('/auth/signIn', data).then((response) => {
                         setLoading(false);
                         localStorage.setItem('userid', JSON.stringify(response.data.user._id));
+                        localStorage.setItem('username', JSON.stringify(response.data.user.username));
                         navigate('/home')
                         //console.log(response.data.user._id)
                     }).catch(error => {

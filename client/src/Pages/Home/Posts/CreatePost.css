@@ -1,0 +1,9 @@
+.upload-button{
+    background-color: white;
+    color: #1DA1F2;
+    border: solid;
+    border-radius: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+    /* margin: 10px 0; */
+}

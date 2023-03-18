@@ -4,9 +4,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import API from '../../api/index.js'
 import FriendsList from './Friends/FriendsList';
 import './FriendProfile.css';
-import PostCard from './Posts/PostCard';
+import Posts from './Posts/Posts.js';
 import ProfileCard from './ProfileCard/ProfileCard';
 import MutualFriends from './Friends/MutualFriends.js';
+import placeholder from '../../assets/placeholder.jpg';
 
 
 const FriendProfile = () => {
@@ -39,10 +40,9 @@ const FriendProfile = () => {
                 :
                 <div className='home-contents'>
                     <ProfileCard profileData={data} />
-                    <div>
+                    <div style={{width:"35%"}}>
                         <div>
-
-                            <div style={{ backgroundColor: "white", height: "2.5rem" }}>
+                            <div style={{ backgroundColor: "white", height: "2.5rem",width:"100%" }}>
                                 <i class="bi bi-search ms-3"></i>
                                 <input
                                     class="search-input ms-3 p-2"
@@ -78,14 +78,20 @@ const FriendProfile = () => {
 
                                 )}
                             </div>
-
                         </div>
-                        <PostCard />
-                        <PostCard />
+                        <Posts posts={data.posts}/>
                     </div>
-                    <div className='pt-5'>
+                    <div>
+                        <div className='d-flex' style={{cursor:"pointer"}} onClick={()=> {
+                            navigate('/home')
+                        }}>
+                    <img src={placeholder} alt="" style={{ borderRadius: "50%", height: "3rem", width: "3rem" }} />
+                                <h5 className='text-danger pt-2 ps-3'>My Profile</h5>
+                        </div>
+                    <div className='pt-2'>
                         <FriendsList friends={data.friends}/>
                         <MutualFriends friends={data.friends} myFriends={myFriends}/>
+                    </div>
                     </div>
                 </div>
             }

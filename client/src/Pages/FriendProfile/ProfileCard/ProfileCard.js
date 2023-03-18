@@ -13,8 +13,8 @@ const ProfileCard = ({ profileData }) => {
 
     return (
 
-        <div>
-            <Card className="p-3" style={{ borderRadius: "7%" }}>
+        <div style={{width:"21%"}}>
+        <Card className="p-3 text-center profileCard" style={{ borderRadius: "7%" }}>
                 <Card.Body>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <Card.Title className='text-warning'>Profile</Card.Title>

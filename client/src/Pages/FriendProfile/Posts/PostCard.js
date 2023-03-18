@@ -3,17 +3,18 @@ import Card from 'react-bootstrap/Card';
 import Placeholder from '../../../assets/placehoder2.jpg';
 import './PostCard.css';
 
-const PostCard = () => {
+const PostCard = ({post}) => {
 
     const [like,setLike] = useState(false)
-    const [likeCount,setLikeCount] = useState(10);
+    const [likeCount,setLikeCount] = useState(post.likes);
 
     return (
-        <div className="p-5" >
+        <div className="pt-5" style={{width:"100%"}} >
             <Card style={{borderRadius:"6%"}}>
-      <Card.Img variant="top" src={Placeholder} style={{height:"20rem",width:"100%",padding:"5px"}} />
+      <Card.Img variant="top" src={post.postPic || Placeholder} style={{height:"20rem",width:"100%",padding:"5px",borderRadius:"6%"}} />
       <Card.Body>
-      <i class={like ? "bi bi-hand-thumbs-up-fill" : "bi bi-hand-thumbs-up"} onClick={()=> {
+        <p>"{post.comment}"</p>
+      <i style={{cursor:"pointer"}} class={like ? "bi bi-hand-thumbs-up-fill ps-2" : "bi bi-hand-thumbs-up ps-2"} onClick={()=> {
         setLike(!like);
         if(!like)
             setLikeCount(likeCount+1);

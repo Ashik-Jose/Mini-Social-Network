@@ -4,7 +4,7 @@
 
 .home-contents{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding-top: 2rem;
 }
 
@@ -17,6 +17,6 @@
     outline: none;
 }
 
-.search-components{
+/* .search-components{
     padding: 5px;
-}
+} */

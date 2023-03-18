@@ -18,6 +18,9 @@ app.use('/api/auth',authRoute);
 app.use('/api/profile',profileRoute);
 app.use('/api/profile/friend',friendRoute);
 
+
+
+
 app.get('/',(req,res)=>{
     res.status(200).json("Hello");
 });

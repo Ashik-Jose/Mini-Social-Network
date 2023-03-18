@@ -1,5 +1,5 @@
 import User from "../model/userschema.js";
-
+import fs from "fs";
 
 export const profile = async (req, res) => {
     const { id } = req.params;
@@ -7,6 +7,8 @@ export const profile = async (req, res) => {
     try {
         const prof = await User.findOne({ _id: id });
         const profile = {
+            profilePic: prof.profilePicture,
+            posts: prof.posts,
             firstName: prof.firstName,
             lastName: prof.lastName,
             username: prof.username,
@@ -18,6 +20,18 @@ export const profile = async (req, res) => {
     } catch (error) {
         return res.status(400).json(error);
     }
+}
+
+export const updateProfilePic = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await User.findByIdAndUpdate({ _id: id }, { profilePicture: req.body.profilePic }, { new: true });
+        return res.status(200).json("Profile Picture Updated");
+
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+
 }
 
 export const statusChange = async (req, res) => {
@@ -58,3 +72,28 @@ export const getSearchResults = async (req, res) => {
     }
 }
 
+export const putPost = async (req, res) => {
+    const { id } = req.params; 
+
+    // const data = fs.readFileSync("uploads/" + req.file.filename)
+    // try {
+    // //   upload.single(("testImage"), (req, res) => {
+        
+    //     return res.status(200).json(data);
+
+
+    //     // });  
+    // } catch (error) {
+    //     return res.status(400).json(error);
+    // }
+
+    try {
+        const myProfile =  await User.findByIdAndUpdate({ _id: id }, { 
+            $push:{posts: req.body}
+       });
+
+       return res.status(200).json(myProfile);
+    } catch(error) {
+        return res.status(400).json(error);
+    }
+}

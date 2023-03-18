@@ -7,7 +7,7 @@ const FriendsList = ({ friends }) => {
 
     const navigate = useNavigate();
     return (
-        <div style={{ width: "15rem" }}>
+        <div className="pt-5 me-1" style={{ width: "100%" }}>
             <Card style={{ borderRadius: "7%" }}>
                 <Card.Body>
                     <Card.Title style={{ fontSize: "1.6rem", fontFamily: "Times New Roman", fontWeight: "bold" }}>Friends ({friends.length})</Card.Title>

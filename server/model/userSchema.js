@@ -43,7 +43,15 @@ const Userschema = mongoose.Schema({
         type: Array,
         default: []
     },
-    profilePicture: { type: String }
+    profilePicture: { type: String },
+
+    posts: [
+        {
+            postPic: { type: String },
+            comment: { type: String },
+            likes: { type: Number, default: 0 },
+        }
+    ]
 
 }, { timestamps: true },);
 

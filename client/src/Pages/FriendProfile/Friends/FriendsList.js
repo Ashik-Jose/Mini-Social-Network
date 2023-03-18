@@ -5,9 +5,10 @@ import Card from 'react-bootstrap/Card';
 
 const FriendsList = ({ friends }) => {
     const navigate = useNavigate();
+    const myusername = JSON.parse(localStorage.getItem('username'))
 
     return (
-        <div className="pt-5" style={{ width: "15rem" }}>
+        <div className="pt-5 me-1" style={{ width: "100%" }}>
             <Card style={{ borderRadius: "7%" }}>
                 <Card.Body>
                     <Card.Title style={{ fontSize: "1.6rem", fontFamily: "Times New Roman", fontWeight: "bold" }}>Friends ({friends.length})</Card.Title>
@@ -17,9 +18,10 @@ const FriendsList = ({ friends }) => {
                             <span style={{ display: "flex" }} className="pb-4">
                                 <img src={Placeholder} alt="" style={{ borderRadius: "50%", height: "3rem", width: "3rem" }} />
                                 <p
-                                    style={{ fontWeight: "bold", fontSize: "1.4rem", fontFamily: "Roboto", cursor: "pointer" }}
+                                    style={{ fontWeight: "bold", fontSize: "1.4rem", fontFamily: "Roboto", cursor:friend !== myusername &&  "pointer" }}
                                     onClick={() => {
-                                        navigate('/friendprofile', { state: { username: friend } })
+                                        if(friend !== myusername)
+                                            navigate('/friendprofile', { state: { username: friend } })
                                     }}
                                 >&nbsp;&nbsp;{friend}</p>
                             </span>

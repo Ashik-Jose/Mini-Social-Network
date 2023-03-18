@@ -9,14 +9,28 @@ const ProfileCard = ({ profileData, userid }) => {
 
     const [status, setStatus] = useState(true);
     const [changeStatus, setChangeStatus] = useState({
-        status: profileData.status || ""})
+        status: profileData.status || ""
+    })
+
     const navigate = useNavigate();
-    //  console.log(profileData)
+
+    function convertToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            };
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    }
 
     return (
 
-        <div>
-            <Card className="p-3" style={{ borderRadius: "7%" }}>
+        <div style={{width:"21%"}}>
+            <Card className="p-3 text-center profileCard" style={{ borderRadius: "7%" }}>
                 <Card.Body>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <Card.Title className='text-warning'>My Profile</Card.Title>
@@ -28,7 +42,23 @@ const ProfileCard = ({ profileData, userid }) => {
                     </div>
 
                     <div className="mb-2 text-muted pt-2">
-                        <img style={{ borderRadius: "50%" }} src={Placeholder} alt='' />
+                        <label htmlFor="file-upload">
+                            <img style={{ borderRadius: "50%", cursor: "pointer" }} src={profileData.profilePic || Placeholder} alt='' />
+                        </label>
+
+                        <input
+                            type="file"
+                            id='file-upload'
+                            accept='.jpeg, .png, .jpg'
+                            style={{ display: "none" }}
+                            onChange={async (e) => {
+                             //   console.log(e.target.files[0])
+                                const imageString = await convertToBase64(e.target.files[0])
+                                API.post('/profile/' + `${userid}` + '/updateprofilepic', { profilePic: imageString }).catch(error =>
+                                    console.log(error))
+                            }}
+                        />
+
                     </div>
                     <div className='pt-2'>
                         <h4>Full Name</h4>
@@ -43,12 +73,12 @@ const ProfileCard = ({ profileData, userid }) => {
                         <h5>{profileData.email}</h5>
                     </div>
                     <div className='pt-2'>
-                        <span style={{ display: "flex", justifyContent: "space-between" }}>
-                            <h4>Status</h4>
+                        <div style={{display:"flex"}}>
+                            <h4>&emsp;&emsp;&emsp;Status&emsp;&emsp;</h4>
                             <i style={{ cursor: "pointer" }} class={status ? "bi bi-pencil-fill pt-1" : "bi bi-check2 pt-1"} onClick={() => {
                                 setStatus(!status)
                                 if (!status) {
-                                    API.post('/profile/' + `${userid}` + '/statuschange',changeStatus).then((response) => {
+                                    API.post('/profile/' + `${userid}` + '/statuschange', changeStatus).then((response) => {
                                         // setLoading(false);
                                         // setData(response.data);
                                     }).catch(error => {
@@ -56,7 +86,7 @@ const ProfileCard = ({ profileData, userid }) => {
                                     });
                                 }
                             }}></i>
-                        </span>
+                        </div>
 
                         {status ?
                             <h5>{profileData.status || ""}</h5> :
@@ -66,7 +96,7 @@ const ProfileCard = ({ profileData, userid }) => {
                                     placeholder="Write Something"
                                     className="status-input "
                                     value={changeStatus.status}
-                                    onChange={(e) => setChangeStatus({...changeStatus,status: e.target.value})}
+                                    onChange={(e) => setChangeStatus({ ...changeStatus, status: e.target.value })}
                                 />
                             </div>
                         }

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Select, { components } from 'react-select';
 import Spinner from 'react-bootstrap/Spinner';
 import API from '../../api/index.js'
 import FriendsList from './Friends/FriendsList';
 import './Home.css';
-import PostCard from './Posts/PostCard';
 import ProfileCard from './ProfileCard/ProfileCard';
 import { useNavigate } from 'react-router-dom';
+import CreatePost from './Posts/CreatePost.js';
+import Posts from './Posts/Posts.js';
 
 
 const Home = () => {
@@ -37,9 +37,9 @@ const Home = () => {
                 :
                 <div className='home-contents'>
                     <ProfileCard profileData={data} userid={userid} />
-                    <div>
+                    <div style={{width:"35%"}}>
                         <div>
-                            <div style={{ backgroundColor: "white", height: "2.5rem" }}>
+                            <div style={{ backgroundColor: "white", height: "2.5rem",width:"100%" }}>
                                 <i class="bi bi-search ms-3"></i>
                                 <input
                                     class="search-input ms-3 p-2"
@@ -77,11 +77,11 @@ const Home = () => {
                             </div>
 
                         </div>
-                        <PostCard />
-                        <PostCard />
+                        <Posts posts={data.posts}/>
                     </div>
-                    <div>
+                    <div className='pt-5'>
                         <FriendsList friends={data.friends} />
+                        <CreatePost userid={userid}/>
                     </div>
                 </div>
             }

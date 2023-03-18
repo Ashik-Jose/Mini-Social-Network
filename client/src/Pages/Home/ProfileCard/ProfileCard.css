@@ -1,3 +1,8 @@
+.profileCard{
+    background-image: linear-gradient(rgba(152, 195, 227, 0.433), white);
+}
+
+
 .status-input{
     padding-top: 10px;
     border: none;

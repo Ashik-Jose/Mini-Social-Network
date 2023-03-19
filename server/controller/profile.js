@@ -74,19 +74,6 @@ export const getSearchResults = async (req, res) => {
 
 export const putPost = async (req, res) => {
     const { id } = req.params; 
-
-    // const data = fs.readFileSync("uploads/" + req.file.filename)
-    // try {
-    // //   upload.single(("testImage"), (req, res) => {
-        
-    //     return res.status(200).json(req.body.comment);
-
-
-    //     // });  
-    // } catch (error) {
-    //     return res.status(400).json(error);
-    // }
-
     try {
         const myProfile =  await User.findByIdAndUpdate({ _id: id }, { 
             $push:{

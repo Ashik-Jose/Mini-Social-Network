@@ -1,4 +1,4 @@
-import User from "../model/userschema.js";
+import User from "../model/userSchema.js";
 
 
 export const friendProfile = async (req, res) => {

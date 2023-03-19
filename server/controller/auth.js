@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import User from "../model/userschema.js";
+import User from "../model/userSchema.js";
 
 export const signIn = async (req, res) => {
     var user = await User.findOne({ username: req.body.username })

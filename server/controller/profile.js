@@ -1,4 +1,4 @@
-import User from "../model/userschema.js";
+import User from "../model/userSchema.js";
 import fs from "fs";
 
 export const profile = async (req, res) => {

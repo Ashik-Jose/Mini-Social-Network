@@ -43,11 +43,11 @@ const Userschema = mongoose.Schema({
         type: Array,
         default: []
     },
-    profilePicture: { type: String },
+    profilePicture: { type: Buffer },
 
     posts: [
         {
-            postPic: { type: String },
+            postPic: { type: Buffer },
             comment: { type: String },
             likes: { type: Number, default: 0 },
         }

@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileCard = ({ profileData, userid }) => {
 
+    const formdata = new FormData();
+
     const [status, setStatus] = useState(true);
     const [changeStatus, setChangeStatus] = useState({
         status: profileData.status || ""
@@ -14,17 +16,14 @@ const ProfileCard = ({ profileData, userid }) => {
 
     const navigate = useNavigate();
 
-    function convertToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            fileReader.onload = () => {
-                resolve(fileReader.result)
-            };
-            fileReader.onerror = (error) => {
-                reject(error)
-            }
-        })
+    function arrayBufferToBase64( buffer ) {
+        var binary = '';
+        var bytes = new Uint8Array( buffer );
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode( bytes[ i ] );
+        }
+        return window.btoa( binary );
     }
 
     return (
@@ -33,7 +32,7 @@ const ProfileCard = ({ profileData, userid }) => {
             <Card className="p-3 text-center profileCard" style={{ borderRadius: "7%" }}>
                 <Card.Body>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <Card.Title className='text-warning'>My Profile</Card.Title>
+                        <Card.Title className='text-warning' onClick={()=>{console.log(profileData.profilePic)}}>My Profile</Card.Title>
                         <i style={{ cursor: "pointer" }} class="bi bi-box-arrow-left" onClick={() => {
                             navigate('/');
                             localStorage.removeItem('userid')
@@ -43,7 +42,8 @@ const ProfileCard = ({ profileData, userid }) => {
 
                     <div className="mb-2 text-muted pt-2">
                         <label htmlFor="file-upload">
-                            <img style={{ borderRadius: "50%", cursor: "pointer" }} src={profileData.profilePic || Placeholder} alt='' />
+                            <img style={{ borderRadius: "50%", cursor: "pointer",height:"8rem",width:"8rem" }} 
+                            src={profileData.profilePic ? `data:image/jpg;base64,${arrayBufferToBase64(profileData.profilePic.data)}` : Placeholder} alt='' />
                         </label>
 
                         <input
@@ -52,9 +52,10 @@ const ProfileCard = ({ profileData, userid }) => {
                             accept='.jpeg, .png, .jpg'
                             style={{ display: "none" }}
                             onChange={async (e) => {
+                                formdata.append("profilePicture", e.target.files[0])
                              //   console.log(e.target.files[0])
-                                const imageString = await convertToBase64(e.target.files[0])
-                                API.post('/profile/' + `${userid}` + '/updateprofilepic', { profilePic: imageString }).catch(error =>
+                             //   const imageString = await convertToBase64(e.target.files[0])
+                                API.post('/profile/' + `${userid}` + '/updateprofilepic', formdata).catch(error =>
                                     console.log(error))
                             }}
                         />

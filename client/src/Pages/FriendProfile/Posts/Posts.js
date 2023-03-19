@@ -1,8 +1,7 @@
 import React from "react";
 import PostCard from "./PostCard";
 
-const Posts = ({ posts }) => {
-
+const Posts = ({ posts,myuserid }) => {
 
   return (
     <div>
@@ -10,7 +9,7 @@ const Posts = ({ posts }) => {
         posts.length > 0 ?
           <div>
             {posts.map((post) => (
-              <PostCard post={post} />
+              <PostCard post={post} myuserid={myuserid}/>
             ))}
           </div> :
           <div>

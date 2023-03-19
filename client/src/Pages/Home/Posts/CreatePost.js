@@ -6,18 +6,7 @@ import './CreatePost.css';
 
 const CreatePost = ({ userid }) => {
 
-    function convertToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            fileReader.onload = () => {
-                resolve(fileReader.result)
-            };
-            fileReader.onerror = (error) => {
-                reject(error)
-            }
-        })
-    }
+    const formdata = new FormData();
 
     const [filename, setFilename] = useState("");
     const [comment, setComment] = useState("");
@@ -31,18 +20,20 @@ const CreatePost = ({ userid }) => {
                     <div className="p-2 pt-3">
                         Choose a file to upload: &emsp;
                         <label htmlFor="post-upload" class="upload-button">Upload </label>
-                        <input id="post-upload" className="d-none" type="file" onChange={(e) => { setFilename(e.target.files[0]) }} />
+                        <input id="post-upload" className="d-none" type="file" onChange={(e) => { 
+                            setFilename(e.target.files[0])
+                           
+                             }} />
                         {filename.name  &&
-                            <span className="ps-2" >
+                            <p className="ps-2" >
                                 <span style={{ fontWeight: "bold" }}>{filename.name}</span> has been chosen
-                            </span>
+                            </p>
                         }
-
-
                     </div>
                     <div className="pt-3 ps-2">
                         <h5>Enter a comment</h5>
                         <textarea
+                        required
                             className="p-2"
                             style={{ width: "100%" }}
                             value={comment}
@@ -56,11 +47,10 @@ const CreatePost = ({ userid }) => {
                         disabled={loading}
                         onClick={async () => {
                             setLoading(true)
-                            const postImage = await convertToBase64(filename)
-                            console.log(postImage)
-                            console.log(comment)
-                            API.post('/profile/' + `${userid}` + '/putposts', { postPic: postImage, comment: comment, likes: 0 }).then(response => {
-                                console.log(response)
+                         formdata.append("post", filename)
+                         formdata.append("comment", comment)
+                            API.post('/profile/' + `${userid}` + '/putposts',formdata).then(response => {
+                         //       console.log(response)
                                 setLoading(false)
                                 setComment("")
                                 setFilename("")

@@ -9,6 +9,7 @@ const LoginPage = ({ changeAuth }) => {
     const [data, setData] = useState({ username: "", password: "" })
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
+    const [errmsg, setErrMsg] = useState("")
 
     return (
         <form class="form-contents">
@@ -35,10 +36,11 @@ const LoginPage = ({ changeAuth }) => {
                     onChange={(e) => setData({ ...data, password: e.target.value })}
                 />
             </div>
+            {errmsg && <div className='text-danger text-center'>{errmsg}</div>}
             <div className="d-grid pt-3">
                 <buttom type="submit" className="btn btn-primary" onClick={() => {
                     setLoading(true);
-                    // console.log(data)
+                    setErrMsg("");
 
                     API.post('/auth/signIn', data).then((response) => {
                         setLoading(false);
@@ -47,6 +49,8 @@ const LoginPage = ({ changeAuth }) => {
                         navigate('/home')
                         //console.log(response.data.user._id)
                     }).catch(error => {
+                        setLoading(false);
+                        setErrMsg(error.response.data.message)
                         console.log(error)
                     });
                 }}>

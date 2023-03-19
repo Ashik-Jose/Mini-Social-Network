@@ -8,6 +8,7 @@ export const friendProfile = async (req, res) => {
         const prof = await User.findOne({ username: username });
         const profile = {
             profilePic: prof.profilePicture,
+            id: prof._id,
             posts: prof.posts,
             firstName: prof.firstName,
             lastName: prof.lastName,
@@ -63,8 +64,6 @@ export const removeFriend = async (req, res) => {
 export const updateLikes = async (req, res) => {
 
     const { id } = req.params;
-    // const { postId } = req.query.postid;
-    // const { likeCount } = req.query.likecount;
 
     try {
 
@@ -75,6 +74,18 @@ export const updateLikes = async (req, res) => {
     } catch (error) {
 
     }
+}
 
+export const deletePosts = async (req, res) => {
 
+    const { id } = req.params;
+
+    try {
+       const updated = await User.updateOne({ _id: id}, {
+            $pull: { posts:  {_id: req.query.postid}}
+        });
+          return res.status(200).json(updated);
+    } catch (error) {
+
+    }
 }

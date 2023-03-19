@@ -35,7 +35,7 @@ const Home = () => {
                     <Spinner animation="border" />
                 </div>
                 :
-                <div className='home-contents'>
+                <div className='home-contents pb-5'>
                     <ProfileCard profileData={data} userid={userid} />
                     <div style={{width:"35%"}}>
                         <div>
@@ -67,7 +67,7 @@ const Home = () => {
                                         return (
                                             <p style={{ cursor: "pointer", fontWeight: "bold" }} className='ps-4' onClick={() => {
                                                 //   console.log(option.username)
-                                                navigate('/friendprofile', { state: { username: option.username, myFriends: data.friends } })
+                                                navigate('/friendprofile', { state: { username: option.username, myFriends: data.friends,dp: data.profilePic } })
                                             }}>{option.username}</p>
                                         );
                                     }
@@ -80,7 +80,7 @@ const Home = () => {
                         <Posts posts={data.posts}/>
                     </div>
                     <div className='pt-5'>
-                        <FriendsList friends={data.friends} />
+                        <FriendsList friends={data.friends} dp={data.profilePic} />
                         <CreatePost userid={userid}/>
                     </div>
                 </div>

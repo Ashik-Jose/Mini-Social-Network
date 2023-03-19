@@ -17,6 +17,7 @@ const SignUpPage = ({ changeAuth }) => {
     const [confirmPassword, setConfirmPassword] = useState(false);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
     var pass = "";
 
 
@@ -97,21 +98,28 @@ const SignUpPage = ({ changeAuth }) => {
                     }}
                 />
                 {confirmPassword && <p style={{ color: "red" }}>Password Mismatch Found</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
             <div className="d-grid pt-1">
-                <buttom type="submit" className="btn btn-primary" onClick={() => {
-                    setLoading(true);
-                    if (!confirmPassword) {
-                        API.post('/auth/signUp', data).then((response) => {
-                            setLoading(false);
-                           changeAuth()
-                        }).catch(error => {
-                            console.log(error)
+                <buttom
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={() => {
+                        if (!confirmPassword && !error) {
+                            setLoading(true);
+                            setError("");
+                            API.post('/auth/signUp', data).then((response) => {
+                                setLoading(false);
+                                changeAuth()
+                            }).catch(error => {
+                                setLoading(false);
+                                setError(error.response.data.message)
+                                console.log(error)
 
-                        });
-                    }
+                            });
+                        }
 
-                }}>
+                    }}>
                     {loading && <Spinner
                         as="span"
                         animation="grow"

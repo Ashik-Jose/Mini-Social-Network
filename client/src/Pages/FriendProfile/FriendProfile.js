@@ -16,6 +16,7 @@ const FriendProfile = () => {
     const myFriends = location.state.myFriends;
     const navigate = useNavigate();
    const username = location.state.username;
+   const dp = location.state.dp;
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState();
     const [options, setOptions] = useState([]);
@@ -79,13 +80,13 @@ const FriendProfile = () => {
                                 )}
                             </div>
                         </div>
-                        <Posts posts={data.posts}/>
+                        <Posts posts={data.posts} myuserid={data.id}/>
                     </div>
                     <div>
                         <div className='d-flex' style={{cursor:"pointer"}} onClick={()=> {
                             navigate('/home')
                         }}>
-                    <img src={placeholder} alt="" style={{ borderRadius: "50%", height: "3rem", width: "3rem" }} />
+                    <img src={dp || placeholder} alt="" style={{ borderRadius: "50%", height: "3rem", width: "3rem" }} />
                                 <h5 className='text-danger pt-2 ps-3'>My Profile</h5>
                         </div>
                     <div className='pt-2'>

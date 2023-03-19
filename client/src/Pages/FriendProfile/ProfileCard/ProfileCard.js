@@ -11,6 +11,18 @@ const ProfileCard = ({ profileData }) => {
     const userid = JSON.parse(localStorage.getItem('userid'))
     const [loading, setLoading] = useState(false);
 
+    
+    function arrayBufferToBase64( buffer ) {
+        var binary = '';
+        var bytes = new Uint8Array( buffer );
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode( bytes[ i ] );
+        }
+        return window.btoa( binary );
+    }
+
+
     return (
 
         <div style={{width:"21%"}}>
@@ -21,7 +33,8 @@ const ProfileCard = ({ profileData }) => {
                     </div>
 
                     <div className="mb-2 text-muted pt-2">
-                        <img style={{ borderRadius: "50%" }} src={Placeholder} alt='' />
+                        <img style={{ borderRadius: "50%" }} 
+                         src={profileData.profilePic ? `data:image/jpg;base64,${arrayBufferToBase64(profileData.profilePic.data)}` : Placeholder} alt='' />
                     </div>
                     <div className='pt-2'>
                         <h4>Full Name</h4>

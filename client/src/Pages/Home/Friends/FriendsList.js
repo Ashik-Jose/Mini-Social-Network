@@ -3,7 +3,7 @@ import Placeholder from '../../../assets/placeholder.jpg'
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 
-const FriendsList = ({ friends }) => {
+const FriendsList = ({ friends,dp }) => {
 
     const navigate = useNavigate();
     return (
@@ -19,7 +19,7 @@ const FriendsList = ({ friends }) => {
                                 <p 
                                 style={{ fontWeight: "bold", fontSize: "1.4rem", fontFamily: "Roboto", cursor: "pointer"}} 
                                 onClick={()=>{
-                                    navigate('/friendprofile', { state: { username: friend,myFriends:friends } })
+                                    navigate('/friendprofile', { state: { username: friend,myFriends:friends,dp:dp } })
                                 }}>&nbsp;&nbsp;{friend}</p>
                             </span>
                         )

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate } from 'react-router-dom';
 import API from '../../api';
 import './LoginPage.css'
 
@@ -15,7 +14,6 @@ const SignUpPage = ({ changeAuth }) => {
     })
 
     const [confirmPassword, setConfirmPassword] = useState(false);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     var pass = "";

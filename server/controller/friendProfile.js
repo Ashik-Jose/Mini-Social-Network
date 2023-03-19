@@ -67,10 +67,10 @@ export const updateLikes = async (req, res) => {
 
     try {
 
-       const updated = await User.updateOne({ _id: id,"posts._id": req.query.postid}, {
-            $set: { "posts.$.likes":  req.query.likecount}
+        const updated = await User.updateOne({ _id: id, "posts._id": req.query.postid }, {
+            $set: { "posts.$.likes": req.query.likecount }
         });
-          return res.status(200).json(updated);
+        return res.status(200).json(updated);
     } catch (error) {
 
     }
@@ -81,10 +81,10 @@ export const deletePosts = async (req, res) => {
     const { id } = req.params;
 
     try {
-       const updated = await User.updateOne({ _id: id}, {
-            $pull: { posts:  {_id: req.query.postid}}
+        const updated = await User.updateOne({ _id: id }, {
+            $pull: { posts: { _id: req.query.postid } }
         });
-          return res.status(200).json(updated);
+        return res.status(200).json(updated);
     } catch (error) {
 
     }

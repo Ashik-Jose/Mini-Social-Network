@@ -1,23 +1,18 @@
-.home{
-    background-image: linear-gradient(#7edfea, white);
+.home {
+  background-image: linear-gradient(#7edfea, white);
 }
 
-.home-contents{
-    display: flex;
-    justify-content: space-around;
-    padding-top: 2rem;
-
+.home-contents {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 2rem;
 }
 
-.search-input{
-    border: none;
+.search-input {
+  border: none;
 }
 
-.search-input:focus{
-    border: none;
-    outline: none;
+.search-input:focus {
+  border: none;
+  outline: none;
 }
-
-/* .search-components{
-    padding: 5px;
-} */

@@ -55,17 +55,10 @@ const Userschema = mongoose.Schema({
 }, { timestamps: true },);
 
 
-// Userschema.virtual('password')
-// .set(function(password){
-//     const salt = bcrypt.genSaltSync(10);
-//     this.hash_password = bcrypt.hashSync(password,salt);
-// });
-
 Userschema.methods = {
     authenticate: function (pass) {
         if (pass == this.password)
             return true;
-        //return bcrypt.compareSync(password,this.hash_password);
     }
 }
 

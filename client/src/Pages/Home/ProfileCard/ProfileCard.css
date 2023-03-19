@@ -1,14 +1,14 @@
-.profileCard{
+.profileCard {
     background-image: linear-gradient(rgba(152, 195, 227, 0.433), white);
 }
 
-
-.status-input{
+.status-input {
     padding-top: 10px;
     border: none;
     border-bottom: 1px solid;
 }
-.status-input:focus{
+
+.status-input:focus {
     border: none;
     border-bottom: 1px solid;
     outline: none;

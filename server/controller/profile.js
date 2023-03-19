@@ -48,14 +48,10 @@ export const statusChange = async (req, res) => {
 }
 
 export const getSearchResults = async (req, res) => {
-    const  searchQuery  = req.query.searchquery;
+    const searchQuery = req.query.searchquery;
     try {
-
-       // return res.status(200).json(searchQuery);
         const search = new RegExp(searchQuery, 'i');
-
-     //   const searchUser = await User.find({ $or: [{ firstName: search }, { lastName: search }, { username: search }] });
-     const searchUser = await User.find({ username: search });
+        const searchUser = await User.find({ username: search });
         const users = [];
 
         searchUser.map((user) => {
@@ -73,22 +69,19 @@ export const getSearchResults = async (req, res) => {
 }
 
 export const putPost = async (req, res) => {
-    const { id } = req.params; 
+    const { id } = req.params;
     try {
-        const myProfile =  await User.findByIdAndUpdate({ _id: id }, { 
-            $push:{
-                // "posts.$.postPic": req.file.filename,
-                // "posts.$.comment": req.body.comment
-
+        const myProfile = await User.findByIdAndUpdate({ _id: id }, {
+            $push: {
                 posts: {
-                    postPic:  fs.readFileSync("uploads/" + req.file.filename),
+                    postPic: fs.readFileSync("uploads/" + req.file.filename),
                     comment: req.body.comment
                 }
             }
-       });
+        });
 
-       return res.status(200).json(myProfile);
-    } catch(error) {
+        return res.status(200).json(myProfile);
+    } catch (error) {
         return res.status(400).json(error);
     }
- }
+}

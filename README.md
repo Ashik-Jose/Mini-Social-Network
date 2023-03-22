@@ -23,6 +23,7 @@ This is the link to a working demo video of my work
 2) Run as local host
 
 To run as local host, first clone the repositoy to store it as a local repository. Ensure that npm is installed in the system.  
+To run as local host change the base url for api in client/src/api/iindex.js to http://localhost:2000/api/  
 Open the server folder of the repository in the terminal and type "npm install" and hit Enter.Then again type "npm start" and hit Enter. The server will start running with message - "Connected"
 Similarly, while running the server, open the client folder in another termianl and type "npm install" and hit Enter.Then run "npm start".  
 The broswer opens up with the landing page of the application.
